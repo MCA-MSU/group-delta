@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading Screen</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      opacity: 1;
+      transition: opacity 1s ease;
+    }
+
+    #loading-container {
+      text-align: center;
+    }
+
+    #loading-text {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    #progress-bar-container {
+      width: 300px;
+      height: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: #fff;
+    }
+
+    #progress-bar {
+      height: 100%;
+      background-color: #4caf50;
+      transition: width 0.3s ease;
+    }
+
+    #links-container {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .link {
+      display: inline-block;
+      margin: 0 10px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading-container">
+    <div id="loading-text">Mihall's Cleaning Association</div>
+    <div id="progress-bar-container">
+      <div id="progress-bar"></div>
+    </div>
+    <div id="links-container">
+      <a href="home.html" class="link">Home</a>
+      <a href="about.html" class="link">About Us</a>
+      <a href="services.html" class="link">Services</a>
+      <a href="contact.html" class="link">Contacts</a>
+    </div>
+  </div>
+
+  <script>
+    let progress = 0;
+    const progressBar = document.getElementById('progress-bar');
+    const linksContainer = document.getElementById('links-container');
+    const loadingContainer = document.getElementById('loading-container');
+
+    function updateProgress() {
+      progress += 10;
+      progressBar.style.width = `${progress}%`;
+
+      if (progress >= 100) {
+        linksContainer.style.display = 'block';
+        document.getElementById('loading-text').innerText = 'Loading complete!';
+      }
+    }
+
+    setInterval(updateProgress, 1000);
+
+    const links = document.querySelectorAll('.link');
+
+    links.forEach(link => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        loadingContainer.style.opacity = '0';
+        setTimeout(() => {
+          window.location.href = event.target.href;
+        }, 1000);
+      });
+    });
+  </script>
+</body>
+</html>
